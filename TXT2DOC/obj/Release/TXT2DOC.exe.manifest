@@ -4,7 +4,7 @@
   <description asmv2:iconFile="T2D.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="TXT2DOC" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="TXT2DOC" version="2013.7.25.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="TXT2DOC.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TXT2DOC.exe" size="1363968">
-      <assemblyIdentity name="TXT2DOC" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TXT2DOC.exe" size="1405440">
+      <assemblyIdentity name="TXT2DOC" version="2013.7.25.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XILRAElJwzRNX8i9DTEivRxYqiegAyNJvZsJb1IWgLw=</dsig:DigestValue>
+        <dsig:DigestValue>y/tzb0N5UAiad2zYYLynKF/5xFnDZhshTOAAQMRvHqk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -1,16 +1,2 @@
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\bin\Debug\TXT2DOC.exe.config
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\bin\Debug\TXT2DOC.exe.manifest
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\bin\Debug\TXT2DOC.application
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\bin\Debug\TXT2DOC.exe
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\bin\Debug\TXT2DOC.pdb
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.csproj.ResolveComReference.cache
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.About.resources
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.Main.resources
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.Properties.Resources.resources
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.Settings.resources
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.csproj.GenerateResource.Cache
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.exe.manifest
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.application
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.exe
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.pdb
-d:\Users\Henry\documents\visual studio 2012\Projects\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.csprojResolveAssemblyReference.cache
+d:\Users\Henry\Documents\GitHub\TXT2DOC\TXT2DOC\bin\Debug\TXT2DOC.exe.config
+d:\Users\Henry\Documents\GitHub\TXT2DOC\TXT2DOC\obj\Debug\TXT2DOC.csproj.ResolveComReference.cache

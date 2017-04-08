@@ -1,6 +1,9 @@
 ﻿using Ini;
 using System;
+using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 /*
 using System;
@@ -26,6 +29,33 @@ namespace TXT2DOC
         public Settings()
         {
             InitializeComponent();
+
+            settings3_1_tfont_combobox.Items.Clear();
+            settings3_1_tfont_combobox.DrawItem += settings3_1_tfont_combobox_DrawItem;
+            settings3_1_tfont_combobox.MeasureItem += settings3_1_tfont_combobox_MeasureItem;
+            settings3_1_tfont_combobox.DrawMode = DrawMode.OwnerDrawFixed;
+
+            settings3_2_bfont_combobox.Items.Clear();
+            settings3_2_bfont_combobox.DrawItem += settings3_2_bfont_combobox_DrawItem;
+            settings3_2_bfont_combobox.MeasureItem += settings3_2_bfont_combobox_MeasureItem;
+            settings3_2_bfont_combobox.DrawMode = DrawMode.OwnerDrawFixed;
+
+            // Fill font combobox
+            InstalledFontCollection installedFontCollection = new InstalledFontCollection();
+            FontFamily[] fontFamilies = installedFontCollection.Families;
+
+            for (Int32 i = 0; i < fontFamilies.Length; i++)
+            {
+                String fontName = fontFamilies[i].Name.ToString();
+
+                Regex r = new Regex(@"[\u4e00-\u9fa5]+");       // Chinese fonts only
+                Match mc = r.Match(fontName);
+                if (mc.Length != 0 && !fontName.Contains("Adobe"))
+                {
+                    settings3_1_tfont_combobox.Items.Add(fontName);
+                    settings3_2_bfont_combobox.Items.Add(fontName);
+                }
+            }
         }
 
 		private void Settings_Load(object sender, EventArgs e)
@@ -182,5 +212,33 @@ namespace TXT2DOC
 				this.settings1_3_StT_checkbox.Enabled = true;
 			}
 		}
-	}
+
+        private void settings3_1_tfont_combobox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Font objFonts = new Font(settings3_1_tfont_combobox.Items[e.Index].ToString(), 12);
+            e.DrawBackground();
+
+            e.Graphics.DrawString(settings3_1_tfont_combobox.Items[e.Index].ToString(), objFonts, new SolidBrush(e.ForeColor), new Point(e.Bounds.Left, e.Bounds.Top));
+        }
+
+        private void settings3_1_tfont_combobox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            Font objFonts = new Font(settings3_1_tfont_combobox.Items[e.Index].ToString(), 12);
+            e.ItemHeight = objFonts.Height;
+        }
+
+        private void settings3_2_bfont_combobox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Font objFonts = new Font(settings3_2_bfont_combobox.Items[e.Index].ToString(), 12);
+            e.DrawBackground();
+
+            e.Graphics.DrawString(settings3_2_bfont_combobox.Items[e.Index].ToString(), objFonts, new SolidBrush(e.ForeColor), new Point(e.Bounds.Left, e.Bounds.Top));
+        }
+
+        private void settings3_2_bfont_combobox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            Font objFonts = new Font(settings3_2_bfont_combobox.Items[e.Index].ToString(), 12);
+            e.ItemHeight = objFonts.Height;
+        }
+    }
 }

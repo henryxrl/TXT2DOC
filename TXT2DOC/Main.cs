@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using VB = Microsoft.VisualBasic;
 using Word = Microsoft.Office.Interop.Word;
@@ -56,6 +58,9 @@ namespace TXT2DOC
 
         public Main()
         {
+            // 设置为中文环境
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("zh-CN");
+
             InitializeComponent();
         }
 
@@ -297,9 +302,20 @@ namespace TXT2DOC
 				int rowNumber = 2;
 				while ((nextLine = sr.ReadLine()) != null)
 				{
-					//Match title = Regex.Match(nextLine, "^([\\s\t　]{0,20}(正文[\\s\t　]{0,4})?[第【]([——-——一二两三四五六七八九十○零百千0-9０-９]{1,12}).*[章节節回集卷部】].*?$)|(Ui)(第.{1,5}章)|(Ui)(第.{1,5}节)");
-					//Match title = Regex.Match(nextLine, "^([\\s\t　]*(正文[\\s\t　]*)?[第【][\\s\t　]*([——-——一二两三四五六七八九十○零百千壹贰叁肆伍陆柒捌玖拾佰仟0-9０-９]*)[\\s\t　]*[章节節回集卷部】][\\s\t　]*.{0,40}?$)|(Ui)(第.{1,5}章)|(Ui)(第.{1,5}节)");
-					Match title = Regex.Match(nextLine, "^([\\s\t　]*([【])?(正文[\\s\t　]*)?[第【][\\s\t　]*([——-——一二两三四五六七八九十○零百千壹贰叁肆伍陆柒捌玖拾佰仟0-9０-９]*)[\\s\t　]*[章节節回集卷部】][\\s\t　]*.{0,40}?$)");
+                    //Match title = Regex.Match(nextLine, "^([\\s\t　]{0,20}(正文[\\s\t　]{0,4})?[第【]([——-——一二两三四五六七八九十○零百千0-9０-９]{1,12}).*[章节節回集卷部】].*?$)|(Ui)(第.{1,5}章)|(Ui)(第.{1,5}节)");
+                    //Match title = Regex.Match(nextLine, "^([\\s\t　]*(正文[\\s\t　]*)?[第【][\\s\t　]*([——-——一二两三四五六七八九十○零百千壹贰叁肆伍陆柒捌玖拾佰仟0-9０-９]*)[\\s\t　]*[章节節回集卷部】][\\s\t　]*.{0,40}?$)|(Ui)(第.{1,5}章)|(Ui)(第.{1,5}节)");
+                    //Match title = Regex.Match(nextLine, "^([\\s\t　]*([【])?(正文[\\s\t　]*)?[第【][\\s\t　]*([——-——一二两三四五六七八九十○零百千壹贰叁肆伍陆柒捌玖拾佰仟0-9０-９]*)[\\s\t　]*[章节節回集卷部】][\\s\t　]*.{0,40}?$)");
+                    String regex_number = "——-——一二两三四五六七八九十○零百千壹贰叁肆伍陆柒捌玖拾佰仟0-9０-９";
+                    String regex_1 = "^(\\s*([【])?(正文\\s*)?[第序终終【]\\s*([" + regex_number + "\\s/\\、、]*)\\s*[章节節回集卷部】]\\s*$)";
+                    String regex_2 = "^(\\s*([【])?(正文\\s*)?[第序终終【]\\s*([" + regex_number + "\\s/\\、、]*)\\s*[章节節回集卷部】]\\s+.{1,50}$)";
+                    String regex_titles = "内容简介|內容簡介|内容介绍|內容介紹|内容梗概|内容大意|小说简介|小說簡介|小说介绍|小說介紹|小说大意|小說大意|书籍简介|書籍簡介|书籍介绍|書籍介紹|书籍大意|書籍大意|作品简介|作品簡介|作品介绍|作品介紹|作品大意|作者简介|作者簡介|作者介绍|作者介紹|简介|簡介|介绍|介紹|大意|梗概|序|序言|序章|前言|楔子|引言|引子|终章|終章|尾声|尾聲|后记|後記|完本感言|出版后记|出版後記|谢辞|謝辭|番外|番外篇";
+                    String regex_3 = "^(\\s*(" + regex_titles + ")\\s*$)";
+                    String regex_4 = "^(\\s*(" + regex_titles + ")\\s+.{0,50}?$)";
+                    String regex_titles_english = "chapter|appendix|appendices|preface|Foreword|Introduction|Prologue|Epigraph|Table of contents|Epilogue|Afterword|Conclusion|Glossary|Acknowledgments|Bibliography|Index|Errata|Colophon|Copyright";
+                    String regex_5 = "^(\\s*((?i)" + regex_titles_english + ")\\s*$)";
+                    String regex_6 = "^(\\s*((?i)" + regex_titles_english + ")\\s+.{0,50}?$)";
+                    String regex = regex_1 + "|" + regex_2 + "|" + regex_3 + "|" + regex_4 + "|" + regex_5 + "|" + regex_6;
+                    Match title = Regex.Match(nextLine, regex);
 
 					// Chapter title (with its line number) found!
 					if (title.Success)
@@ -441,6 +457,7 @@ namespace TXT2DOC
 			/*** Open HTML via Word ***/
 			objWord = new Word.Application();
 			objDoc = objWord.Documents.OpenNoRepairDialog(HTMLPath);
+            objDoc.ActiveWindow.View.ReadingLayout = false;
 			processHTMLInWord(translation, vertical, cover, TOC, TOCLoad, pageColor, titleFont, titleSize, titleColor, bodyFont, bodySize, bodyColor, lineSpacing, addParagraphSpacing, header, headerSize, headerAlign, headerBorder, footer, footerSize, footerAlign, footerStyle, footerBorder);
 			//objWord.ActiveDocument.Range(0, 0).TCSCConverter(Word.WdTCSCConverterDirection.wdTCSCConverterDirectionAuto);
 			//Word.Range rng = objWord.ActiveDocument.Sections[3].Range;
